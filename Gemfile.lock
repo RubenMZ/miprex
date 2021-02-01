@@ -247,6 +247,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  ruby
   universal-darwin-20
 
 DEPENDENCIES
@@ -270,6 +271,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.4)
   rspec-rails
+  rubocop
   rubocop-rspec
   shoulda-matchers
   simplecov
@@ -279,7 +281,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.7.1p83
 
 BUNDLED WITH
    2.2.5
