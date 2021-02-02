@@ -26,6 +26,39 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: prices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prices (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    supermarket_id bigint NOT NULL,
+    value double precision,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prices_id_seq OWNED BY public.prices.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -33,6 +66,7 @@ CREATE TABLE public.products (
     id bigint NOT NULL,
     name character varying,
     unit character varying,
+    quantity double precision,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -67,10 +101,55 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: supermarkets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.supermarkets (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: supermarkets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.supermarkets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: supermarkets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.supermarkets_id_seq OWNED BY public.supermarkets.id;
+
+
+--
+-- Name: prices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices ALTER COLUMN id SET DEFAULT nextval('public.prices_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
+-- Name: supermarkets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.supermarkets ALTER COLUMN id SET DEFAULT nextval('public.supermarkets_id_seq'::regclass);
 
 
 --
@@ -79,6 +158,14 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: prices prices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices
+    ADD CONSTRAINT prices_pkey PRIMARY KEY (id);
 
 
 --
@@ -98,12 +185,52 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: supermarkets supermarkets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.supermarkets
+    ADD CONSTRAINT supermarkets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_prices_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prices_on_product_id ON public.prices USING btree (product_id);
+
+
+--
+-- Name: index_prices_on_supermarket_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prices_on_supermarket_id ON public.prices USING btree (supermarket_id);
+
+
+--
+-- Name: prices fk_rails_b8ee0bfea1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices
+    ADD CONSTRAINT fk_rails_b8ee0bfea1 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: prices fk_rails_f260a28c21; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices
+    ADD CONSTRAINT fk_rails_f260a28c21 FOREIGN KEY (supermarket_id) REFERENCES public.supermarkets(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20210201193302');
+('20210201193302'),
+('20210202203655'),
+('20210202204835');
 
 

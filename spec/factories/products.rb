@@ -9,9 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Product <  ApplicationRecord
-  validates :name, presence: true
-  validates :quantity, presence: true
-  validates :unit, presence: true
+FactoryBot.define do
+  factory :product do
+    name { 'Product' }
+    quantity { 0.5 }
+    unit { 'unit' }
+  end
 end
-

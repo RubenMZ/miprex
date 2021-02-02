@@ -35,5 +35,9 @@ module Miprex
     config.api_only = true
 
     config.active_record.schema_format = :sql
+
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end
