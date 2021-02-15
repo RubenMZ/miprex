@@ -16,7 +16,9 @@ module Webhook
       end
 
       def card_messages(array)
-        array.map { |i| card_message(i) }
+        {
+          fulfillmentMessages: array.map { |i| card_message(i) }
+        }
       end
 
       def card_message(data)
@@ -27,7 +29,7 @@ module Webhook
             imageUri: data[:image],
             buttons: [
               {
-                text: 'Example button',
+                text: 'Button',
                 postback: 'https://www.google.es'
               }
             ]
