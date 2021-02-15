@@ -1,16 +1,8 @@
 class WebhookController < ApplicationController
 
   def webhook
-    render json: {
-      "fulfillmentMessages": [
-        {
-          "text": {
-            "text": [
-              "Text response from webhook"
-            ]
-          }
-        }
-      ]
-    }
+    response = Webhook::WebhookService.execute(params)
+    render json: response
   end
 end
+
