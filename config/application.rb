@@ -39,5 +39,9 @@ module Miprex
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.i18n.load_path += Dir[Rails.root.join('locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :es
+    config.i18n.locale = :es
   end
 end
