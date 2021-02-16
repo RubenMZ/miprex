@@ -3,7 +3,7 @@ module Webhook
     class << self
       def execute(messages)
         {
-          fulfillmentMessages: messages
+          fulfillmentMessages: [messages]
         }
       end
 
