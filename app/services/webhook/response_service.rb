@@ -1,23 +1,9 @@
 module Webhook
   class ResponseService
     class << self
-      def execute(array)
+      def execute(messages)
         {
-          fulfillmentMessages: build_messages(array)
-        }
-      end
-
-      def build_messages(array)
-        array.each { |item| message(item) }
-      end
-
-      def message(data)
-        # define it in each response service
-      end
-
-      def card_messages(array)
-        {
-          fulfillmentMessages: array.map { |i| card_message(i) }
+          fulfillmentMessages: messages
         }
       end
 
@@ -27,12 +13,7 @@ module Webhook
             title: data[:title],
             subtitle: data[:subtitle],
             imageUri: data[:image],
-            buttons: [
-              {
-                text: 'Button',
-                postback: 'https://www.google.es'
-              }
-            ]
+            buttons: [] # [{text: 'Link (soon)', postback: 'https://example.com'}]
           }
         }
       end
