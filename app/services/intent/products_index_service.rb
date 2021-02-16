@@ -22,25 +22,21 @@ module Intent
       end
 
       def description
-        "#{I18n.t('products.header')}
-        #{@products.map { |p| product_description(p) }}
-
-        "
+        text = "#{I18n.t('products.header')}\n"
+        @products.map { |p| text += product_description(p) }
       end
 
       def product_description(product)
-        "
-        #{I18n.t('products.name', product_name: product.name)}
-          #{prices_description(product) }}
-        "
+        "#{I18n.t('products.name', product_name: product.name)}
+        #{prices_description(product)}"
       end
 
       def prices_description(product)
-        "#{
-          product.last_prices.each_with_index.map do |price, index|
-            I18n.t('products.price')[index] + price_description(product, price)
-          end
-        }"
+        text = ""
+        product.last_prices.each_with_index.map do |price, index|
+            text += "#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+        end
+        text
       end
 
       def price_description(product, price)
