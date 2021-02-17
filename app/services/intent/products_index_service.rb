@@ -24,6 +24,7 @@ module Intent
       def description
         text = "#{I18n.t('products.header')}\n"
         @products.map { |p| text += product_description(p) }
+        text
       end
 
       def product_description(product)
