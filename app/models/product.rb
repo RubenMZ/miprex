@@ -20,6 +20,10 @@ class Product <  ApplicationRecord
     prices.order('value ASC').first
   end
 
+  def ordered_last_prices
+    last_prices.sort_by{|x| x[:value] }[0..2]
+  end
+
   def last_prices
     prices.order('created_at ASC').group_by(&:supermarket_id).values.map(&:last)
   end

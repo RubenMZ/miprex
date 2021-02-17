@@ -11,7 +11,6 @@ module Intent
 
       def initiate(params)
         @products = Product.all
-        @supermarkets = Product.first.prices.order('created_at DESC').group_by(&:supermarket_id)
       end
 
       def build_data
@@ -22,20 +21,23 @@ module Intent
       end
 
       def description
-        text = "#{I18n.t('products.header')}\n"
-        @products.map { |p| text += product_description(p) }
+        text = "#{I18n.t('products.header')}\n\n"
+        @products.each { |p| text += product_description(p) }
         text
       end
 
       def product_description(product)
-        "#{I18n.t('products.name', product_name: product.name)}
-        #{prices_description(product)}"
+        "#{product_name(product)}\n#{prices_description(product)}\n"
+      end
+
+      def product_name(product)
+        I18n.t('products.name', product_name: product.name)
       end
 
       def prices_description(product)
         text = ""
-        product.last_prices.each_with_index.map do |price, index|
-            text += "#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+        product.ordered_last_prices.each_with_index do |price, index|
+          text += "\t#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
         end
         text
       end
