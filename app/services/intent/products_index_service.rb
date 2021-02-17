@@ -37,7 +37,7 @@ module Intent
       def prices_description(product)
         text = ""
         product.ordered_last_prices.each_with_index do |price, index|
-          text += "\t#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+          text += "\t\t#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
         end
         text
       end
@@ -45,7 +45,7 @@ module Intent
       def price_description(product, price)
         params = {
           supermarket_name: price.supermarket.name,
-          price: price.value,
+          price: round_decimals(price.value),
           unit_price: unit_price(product, price),
           unit: product.unit
         }
@@ -53,7 +53,11 @@ module Intent
       end
 
       def unit_price(product, price)
-        (price.value / product.quantity).round(2)
+        round_decimals(price.value / product.quantity)
+      end
+
+      def round_decimals(value)
+        sprintf('%.2f', value)
       end
 
       def generate_response(data)
