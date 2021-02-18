@@ -37,7 +37,7 @@ module Intent
       def prices_description(product)
         text = ""
         product.ordered_last_prices.each_with_index do |price, index|
-          text += "\t\t#{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+          text += "    #{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
         end
         text
       end
