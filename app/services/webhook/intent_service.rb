@@ -1,20 +1,27 @@
 module Webhook
   class IntentService
     class << self
+      attr_reader :service
+      attr_reader :params
+
       def execute(params)
         initiate(params)
-        @service.execute(params)
+        service.execute(filter_params)
       end
 
       private
 
       def initiate(params)
-        @intent = intent_name(params)
-        @service = intents_correspondence[@intent.to_sym]
+        @params = params
+        @service = intents_correspondence[intent]
       end
 
-      def intent_name(params)
-        params[:queryResult][:action]
+      def intent
+        params[:queryResult][:action].to_sym
+      end
+
+      def filter_params
+        params[:queryResult][:parameters]
       end
 
       def intents_correspondence

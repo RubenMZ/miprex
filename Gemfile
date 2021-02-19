@@ -40,6 +40,9 @@ gem 'pundit'
 gem 'dotenv-rails'
 # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter.
 gem 'rubocop', require: false
+# PgSearch builds named scopes that take advantage of PostgreSQL's full text search.
+gem 'pg_search'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

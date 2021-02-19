@@ -1,14 +1,17 @@
 module Webhook
   class WebhookService
-    def self.execute(params)
-      response = Webhook::IntentService.execute(params)
-      Webhook::ResponseService.execute(response)
-    end
+    class << self
 
-    private
+      def execute(params)
+        response = Webhook::IntentService.execute(params)
+        Webhook::ResponseService.execute(response)
+      end
 
-    def source
-      params[:source]
+      private
+
+      def source
+        params[:source]
+      end
     end
   end
 end

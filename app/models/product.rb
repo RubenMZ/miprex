@@ -10,11 +10,15 @@
 #  updated_at :datetime         not null
 #
 class Product <  ApplicationRecord
+  include PgSearch::Model
+
   validates :name, presence: true
   validates :quantity, presence: true
   validates :unit, presence: true
 
   has_many :prices, inverse_of: :product, dependent: :destroy
+
+  pg_search_scope :search_by_name, against: :name
 
   def min_price
     prices.order('value ASC').first

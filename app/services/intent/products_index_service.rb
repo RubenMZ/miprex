@@ -1,6 +1,8 @@
 module Intent
   class ProductsIndexService
     class << self
+      attr_reader :params
+
       def execute(params)
         initiate(params)
         products = build_data
@@ -10,24 +12,28 @@ module Intent
       private
 
       def initiate(params)
-        @products = Product.all
+        @params = params
+        @products = Product.search_by_name(filter_params)
+      end
+
+      def filter_params
+        params[:any]
       end
 
       def build_data
         {
           subtitle: description,
-          image: 'https://www.vinotecadelalto.cl/wp-content/uploads/2019/11/test-product.png'
         }
       end
 
       def description
-        text = "#{I18n.t('products.header')}\n\n"
-        @products.each { |p| text += product_description(p) }
-        text
+        "#{I18n.t('products.header')}\n\n#{products_description}"
       end
 
-      def product_description(product)
-        "#{product_name(product)}\n#{prices_description(product)}\n"
+      def products_description
+        @products.each_with_object('') do |product, text|
+          text << "#{product_name(product)}\n#{prices_description(product)}\n"
+        end
       end
 
       def product_name(product)
@@ -35,11 +41,9 @@ module Intent
       end
 
       def prices_description(product)
-        text = ""
-        product.ordered_last_prices.each_with_index do |price, index|
-          text += "    #{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+        product.ordered_last_prices.each.with_index.each_with_object('') do |(price, index), text|
+          text << "    #{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
         end
-        text
       end
 
       def price_description(product, price)
