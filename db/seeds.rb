@@ -14,12 +14,12 @@ def generate_price_objects(value, product, supermarkets)
 end
 
 products = Product.create([
-  {name: 'Coca Cola lata 33 cl.', quantity: 0.33, unit: 'L'}, # 0,67
-  {name: 'Coca Cola botella 2 l.', quantity: 2, unit: 'L'}, # 0,67
-  {name: "Patatas fritas sabor campesinas Lay's 250 g.", quantity: 0.25, unit: 'kg'}, # 2,13
-  {name: "Patatas fritas sabor campesinas Lay's 160 g.", quantity: 0.16, unit: 'kg'}, # 1,56
-  {name: 'Lavavajillas máquina Todo en 1 Max Calgonit Finish 65 ud', quantity: 65, unit: 'ud'}, # 12,74
-  {name: 'Patatas fritas onduladas sabor jamón Ruffles 160 g.', quantity: 0.16, unit: 'kg'} # 1,48
+  {name: 'Coca Cola lata 33 cl.', quantity: 0.33, unit: 'L', image_url: 'https://static.carrefour.es/hd_510x_/img_pim_food/000041_00_1.jpg'}, # 0,67
+  {name: 'Coca Cola botella 2 l.', quantity: 2, unit: 'L', image_url: 'https://static.carrefour.es/hd_510x_/img_pim_food/000046_00_1.jpg'}, # 0,67
+  {name: "Patatas fritas sabor campesinas Lay's 250 g.", quantity: 0.25, unit: 'kg', image_url: 'https://static.carrefour.es/hd_350x_/img_pim_food/776230_00_1.jpg'}, # 2,13
+  {name: "Patatas fritas sabor campesinas Lay's 160 g.", quantity: 0.16, unit: 'kg', image_url: 'https://static.carrefour.es/hd_350x_/img_pim_food/468367_00_1.jpg'}, # 1,56
+  {name: 'Lavavajillas máquina Todo en 1 Max Calgonit Finish 65 ud', quantity: 65, unit: 'ud', image_url: 'https://static.carrefour.es/hd_510x_/img_pim_food/216683_00_1.jpg'}, # 12,74
+  {name: 'Patatas fritas onduladas sabor jamón Ruffles 160 g.', quantity: 0.16, unit: 'kg', image_url: 'https://static.carrefour.es/hd_510x_/img_pim_food/468411_00_1.jpg'} # 1,48
 ])
 
 supermarkets = Supermarket.create([

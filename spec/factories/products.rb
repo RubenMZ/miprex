@@ -3,6 +3,7 @@
 # Table name: products
 #
 #  id         :bigint           not null, primary key
+#  image_url  :string
 #  name       :string
 #  quantity   :float
 #  unit       :string

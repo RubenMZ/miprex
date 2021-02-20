@@ -101,7 +101,8 @@ CREATE TABLE public.products (
     unit character varying,
     quantity double precision,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    image_url character varying
 );
 
 
@@ -287,6 +288,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210201193302'),
 ('20210202203655'),
 ('20210202204835'),
-('20210219163350');
+('20210219163350'),
+('20210220182323');
 
 

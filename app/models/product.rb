@@ -3,6 +3,7 @@
 # Table name: products
 #
 #  id         :bigint           not null, primary key
+#  image_url  :string
 #  name       :string
 #  quantity   :float
 #  unit       :string
@@ -25,7 +26,7 @@ class Product <  ApplicationRecord
   end
 
   def ordered_last_prices
-    last_prices.sort_by{|x| x[:value] }[0..2]
+    last_prices.sort_by{|x| x[:value] }
   end
 
   def last_prices

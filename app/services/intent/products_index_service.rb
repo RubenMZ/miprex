@@ -1,12 +1,17 @@
 module Intent
   class ProductsIndexService
     class << self
-      attr_reader :params
+      attr_reader :params, :products
 
       def execute(params)
         initiate(params)
-        products = build_data
-        generate_response(products)
+
+        if products.count == 1
+          Intent::ProductsShowService.execute(products.first)
+        else
+          data = build_data
+          generate_response(data)
+        end
       end
 
       private
@@ -22,12 +27,12 @@ module Intent
 
       def build_data
         {
-          subtitle: description,
+          text: description,
         }
       end
 
       def description
-        "#{I18n.t('products.header')}\n\n#{products_description}"
+        "#{I18n.t('products.index.header')}\n\n#{products_description}"
       end
 
       def products_description
@@ -37,12 +42,12 @@ module Intent
       end
 
       def product_name(product)
-        I18n.t('products.name', product_name: product.name)
+        I18n.t('products.index.name', product_name: product.name)
       end
 
       def prices_description(product)
-        product.ordered_last_prices.each.with_index.each_with_object('') do |(price, index), text|
-          text << "    #{I18n.t('products.medals')[index]} #{price_description(product, price)}\n"
+        prices(product).each.with_index.each_with_object('') do |(price, index), text|
+          text << "    #{I18n.t('products.index.medals')[index]} #{price_description(product, price)}\n"
         end
       end
 
@@ -53,7 +58,11 @@ module Intent
           unit_price: unit_price(product, price),
           unit: product.unit
         }
-        I18n.t('products.price', params)
+        I18n.t('products.index.price', params)
+      end
+
+      def prices(product)
+        product.ordered_last_prices[0..2]
       end
 
       def unit_price(product, price)
@@ -65,7 +74,7 @@ module Intent
       end
 
       def generate_response(data)
-        Webhook::ResponseService.card_message(data)
+        Webhook::ResponseService.text_message(data)
       end
     end
   end
