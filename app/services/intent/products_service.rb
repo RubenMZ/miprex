@@ -6,12 +6,12 @@ module Intent
       def execute(params)
         initiate(params)
 
-        if products.count == 1
-          Intent::ProductsShowService.execute(products.first)
-        elsif products.count > 1
+        return nil if products.empty?
+
+        if products.count > 1
           Intent::ProductsIndexService.execute(products)
         else
-          {}
+          Intent::ProductsShowService.execute(products.first)
         end
       end
 

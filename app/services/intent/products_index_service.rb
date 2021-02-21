@@ -17,7 +17,7 @@ module Intent
 
       def build_data
         {
-          text: description,
+          subtitle: description,
         }
       end
 
@@ -64,7 +64,7 @@ module Intent
       end
 
       def generate_response(data)
-        Webhook::ResponseService.text_message(data)
+        Webhook::ResponseService.card_message(data)
       end
     end
   end
