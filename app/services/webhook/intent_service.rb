@@ -26,7 +26,7 @@ module Webhook
 
       def intents_correspondence
         {
-          'products.index': Intent::ProductsIndexService,
+          'products.index': Intent::ProductsService,
         }
       end
     end

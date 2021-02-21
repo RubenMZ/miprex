@@ -1,28 +1,18 @@
 module Intent
   class ProductsIndexService
     class << self
-      attr_reader :params, :products
+      attr_reader :products
 
-      def execute(params)
-        initiate(params)
-
-        if products.count == 1
-          Intent::ProductsShowService.execute(products.first)
-        else
-          data = build_data
-          generate_response(data)
-        end
+      def execute(products)
+        initiate(products)
+        data = build_data
+        generate_response(data)
       end
 
       private
 
-      def initiate(params)
-        @params = params
-        @products = Product.search_by_name(filter_params)
-      end
-
-      def filter_params
-        params[:any]
+      def initiate(products)
+        @products = products
       end
 
       def build_data
@@ -36,7 +26,7 @@ module Intent
       end
 
       def products_description
-        @products.each_with_object('') do |product, text|
+        products.each_with_object('') do |product, text|
           text << "#{product_name(product)}\n#{prices_description(product)}\n"
         end
       end
