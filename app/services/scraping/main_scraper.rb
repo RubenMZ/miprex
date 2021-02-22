@@ -3,10 +3,9 @@ module Scraping
     class << self
       attr_reader :service, :supermarket
 
-      def execute(supermarket_name='')
+      def execute(supermarket_name='', sections: [156])
         initiate(supermarket_name)
-        binding.pry
-        products = service.execute()
+        products = service.execute(sections)
         products.each do |object|
           product = create_product(object)
           create_price(object, product)
