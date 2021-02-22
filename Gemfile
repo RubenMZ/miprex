@@ -19,6 +19,7 @@ gem 'puma', '~> 4.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser. Among Nokogiri's many features is the ability to search documents via XPath or CSS3 selectors.
 gem 'nokogiri', '~> 1.8.5'
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -42,7 +43,10 @@ gem 'dotenv-rails'
 gem 'rubocop', require: false
 # PgSearch builds named scopes that take advantage of PostgreSQL's full text search.
 gem 'pg_search'
+# The Mechanize library is used for automating interaction with websites.
+gem 'mechanize'
 
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
