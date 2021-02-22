@@ -35,7 +35,7 @@ module Scraping
       def build_data(product)
         price = product['price_instructions']
         {
-          name: product['display_name'],
+          name: "#{product['display_name']} #{product['packaging']}",
           price: price['unit_price'],
           quantity: price['unit_size'],
           unit: price['reference_format'],
