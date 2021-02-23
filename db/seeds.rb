@@ -9,7 +9,7 @@
 def generate_price_objects(value, product, supermarkets)
   supermarkets.map do |supermarket|
     offset = rand(0.01..0.05).round(2)
-    {value: value+offset, product: product, supermarket: supermarket}
+    {value: value + offset, product: product, supermarket: supermarket}
   end
 end
 
@@ -38,4 +38,3 @@ price_objects += generate_price_objects(12.50, products[4], supermarkets)
 price_objects += generate_price_objects(1.48, products[5], supermarkets)
 
 Price.create(price_objects)
-

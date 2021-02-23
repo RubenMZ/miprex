@@ -7,10 +7,12 @@ module Scraping
     class << self
       attr_reader :products
 
-      def execute(page=0)
-        initiate(page)
+      def execute(pages=[0])
+        pages.map do |page|
+          initiate(page)
 
-        products.map { |c| build_data(c) }
+          products.map { |c| build_data(c) }
+        end.flatten
       end
 
       private
