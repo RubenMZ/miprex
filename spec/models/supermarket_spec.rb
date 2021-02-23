@@ -12,6 +12,10 @@ RSpec.describe Supermarket, type: :model do
     it { is_expected.to have_db_column(:name).of_type(:string) }
   end
 
+  describe 'Relationships' do
+    it { is_expected.to have_many(:prices).class_name('Price').dependent(:destroy) }
+  end
+
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:name) }
   end

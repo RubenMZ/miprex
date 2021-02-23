@@ -28,6 +28,11 @@ RSpec.describe Price, type: :model do
     it { is_expected.to have_db_column(:supermarket_id).of_type(:integer) }
   end
 
+  describe 'Relationships' do
+    it { is_expected.to belong_to(:product).class_name('Product') }
+    it { is_expected.to belong_to(:supermarket).class_name('Supermarket') }
+  end
+
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:value) }
   end

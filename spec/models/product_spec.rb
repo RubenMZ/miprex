@@ -17,8 +17,8 @@ RSpec.describe Product, type: :model do
     it { is_expected.to have_db_column(:unit).of_type(:string) }
   end
 
-  describe 'Relationship' do
-    it { is_expected.to have_many(:prices).of_type(Price) }
+  describe 'Relationships' do
+    it { is_expected.to have_many(:prices).class_name('Price').dependent(:destroy) }
   end
 
   describe 'Validations' do
