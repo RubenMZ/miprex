@@ -9,7 +9,7 @@ module Scraping
         sections.map do |section|
           initiate(section)
 
-          json_array = categories.map { |c| build_category(c) }.flatten
+          categories.map { |c| build_category(c) }.flatten
         end.flatten
       end
 
@@ -39,7 +39,8 @@ module Scraping
           price: price['unit_price'],
           quantity: price['unit_size'],
           unit: price['reference_format'],
-          image_url: product['thumbnail']
+          image_url: product['thumbnail'],
+          product_url: product['share_url']
         }
       end
     end

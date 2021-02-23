@@ -45,7 +45,7 @@ gem 'rubocop', require: false
 gem 'pg_search'
 # The Mechanize library is used for automating interaction with websites.
 gem 'mechanize'
-
+# Makes http fun again! Ain't no party like a httparty, because a httparty don't stop.
 gem 'httparty'
 
 group :development, :test do

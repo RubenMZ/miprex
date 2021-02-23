@@ -23,7 +23,7 @@ module Intent
       end
 
       def description
-          "#{product_name}\n#{prices_description}\n"
+        "#{product_name}\n#{prices_description}\n"
       end
 
       def product_name
@@ -55,7 +55,7 @@ module Intent
       end
 
       def round_decimals(value)
-        sprintf('%.2f', value)
+        format('%.2f', value)
       end
 
       def generate_response(data)

@@ -22,12 +22,12 @@ module Scraping
       def scrapers_correspondence
         {
           'Mercadona': Scraping::MercadonaScraper,
-          # 'Carrefour': Scraping::CarrefourScraper
+          'Carrefour': Scraping::CarrefourScraper
         }
       end
 
       def create_product(data)
-        # TODO: Improve search
+        # TODO: Improve search
         Product.search_by_name(name: data[:name]).first || Product.create(
           name: data[:name],
           quantity: data[:quantity].to_f,

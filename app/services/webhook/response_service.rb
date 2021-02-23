@@ -13,7 +13,7 @@ module Webhook
             title: data[:title],
             subtitle: data[:subtitle],
             imageUri: data[:image],
-            buttons: [] # [{text: 'Link (soon)', postback: 'https://example.com'}]
+            buttons: [] # [{text: 'Link (soon)', postback: 'https://example.com'}]
           }
         }
       end

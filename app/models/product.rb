@@ -10,14 +10,15 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Product <  ApplicationRecord
+class Product < ApplicationRecord
   include PgSearch::Model
+
+  has_many :prices, inverse_of: :product, dependent: :destroy
 
   validates :name, presence: true
   validates :quantity, presence: true
   validates :unit, presence: true
-
-  has_many :prices, inverse_of: :product, dependent: :destroy
+  validates :name, uniqueness: true
 
   pg_search_scope :search_by_name, against: :name
 
@@ -26,11 +27,10 @@ class Product <  ApplicationRecord
   end
 
   def ordered_last_prices
-    last_prices.sort_by{|x| x[:value] }
+    last_prices.sort_by { |x| x[:value] }
   end
 
   def last_prices
     prices.order('created_at ASC').group_by(&:supermarket_id).values.map(&:last)
   end
 end
-

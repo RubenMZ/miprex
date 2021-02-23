@@ -1,8 +1,7 @@
 module Webhook
   class IntentService
     class << self
-      attr_reader :service
-      attr_reader :params
+      attr_reader :service, :params
 
       def execute(params)
         initiate(params)
@@ -26,7 +25,7 @@ module Webhook
 
       def intents_correspondence
         {
-          'products.index': Intent::ProductsService,
+          'products.index': Intent::ProductsService
         }
       end
     end

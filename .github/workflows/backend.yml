@@ -1,0 +1,83 @@
+# https://gorails.com/episodes/github-actions-continuous-integration-ruby-on-rails
+name: Backend
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Checking rubocop
+      run: |
+        gem install rubocop rubocop-rspec --no-document
+        rubocop -D app/ config/ spec/
+
+  bundle-audit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Checking bundle-audit
+      run: |
+        gem install bundler-audit --no-document
+        bundle-audit check --update
+
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Checking sast brakeman
+      run: |
+        gem install brakeman --no-document
+        brakeman
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:13.1
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 'miprex'
+          POSTGRES_DB: 'miprex_test'
+          POSTGRES_HOST_AUTH_METHOD: trust
+
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Build and test with Rake
+      env:
+        DATABASE_URL: postgres://postgres:@localhost:5432/miprex_test
+        RAILS_ENV: test
+        # REDIS_URL: redis://localhost:6379/0
+        # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      run: |
+        gem install bundler --no-document
+        bundle install --quiet
+        bundle exec rails db:test:prepare
+        bundle exec rspec

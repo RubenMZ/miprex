@@ -16,9 +16,7 @@ module Intent
       end
 
       def build_data
-        {
-          subtitle: description,
-        }
+        {subtitle: description}
       end
 
       def description
@@ -60,7 +58,7 @@ module Intent
       end
 
       def round_decimals(value)
-        sprintf('%.2f', value)
+        format('%.2f', value)
       end
 
       def generate_response(data)
