@@ -1,7 +1,7 @@
 module Webhook
   class ResponseService
     class << self
-      def execute(messages)
+      def run(messages)
         {
           fulfillmentMessages: [messages]
         }
