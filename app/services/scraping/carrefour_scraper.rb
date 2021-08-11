@@ -8,18 +8,13 @@ module Scraping
       attr_reader :products
 
       def execute(pages=[0])
-        pages.map do |page|
-          initiate(page)
-
-          products.map { |c| build_data(c) }
-        end.flatten
+        pages.map(&method(:process_page)).compact.flatten
       end
 
       private
 
-      def initiate(page)
-        response = HTTParty.get(page_url(page))
-        @products = response['results']['items']
+      def get_page(page)
+        HTTParty.get(page_url(page))
       end
 
       def hostname
@@ -31,7 +26,16 @@ module Scraping
         "#{hostname}/cloud-api/plp-food-papi/v1/supermercado/bebidas/cat20003/c?offset=#{offset}&_maxreflevel=3&preview=false"
       end
 
-      def build_data(product)
+      def process_page(page)
+        response = get_page page
+        process_products response['results']['items']
+      end
+
+      def process_products(products)
+        products.map(&method(:build_product_hash))
+      end
+
+      def build_product_hash(product)
         {
           name: product['name'],
           price: format_price(product['price']),
