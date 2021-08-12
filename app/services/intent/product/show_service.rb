@@ -1,37 +1,35 @@
 module Intent
-  class ProductsShowService
-    class << self
-      attr_reader :product
-
-      def execute(product)
-        initiate(product)
-        data = build_data
+  module Product
+    class ShowService < Intent::BaseService
+      def execute
+        product = search_product
+        data = build_data(product)
         generate_response(data)
       end
 
       private
 
-      def initiate(product)
-        @product = product
+      def search_product
+        ::Product.search_by_name(filter_params[:any]).first
       end
 
-      def build_data
+      def build_data(product)
         {
-          subtitle: description,
+          subtitle: description(product),
           image: product.image_url
         }
       end
 
-      def description
-        "#{product_name}\n#{prices_description}\n"
+      def description(product)
+        "#{product_name(product)}\n#{prices_description(product)}\n"
       end
 
-      def product_name
+      def product_name(product)
         I18n.t('products.index.name', product_name: product.name)
       end
 
-      def prices_description
-        prices.each_with_object('') do |price, text|
+      def prices_description(product)
+        prices(product).each_with_object('') do |price, text|
           text << "    #{price_description(product, price)}\n"
         end
       end
@@ -46,7 +44,7 @@ module Intent
         I18n.t('products.index.price', params)
       end
 
-      def prices
+      def prices(product)
         @prices ||= product.ordered_last_prices
       end
 

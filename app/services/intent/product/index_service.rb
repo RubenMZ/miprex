@@ -1,29 +1,27 @@
 module Intent
-  class ProductsIndexService
-    class << self
-      attr_reader :products
-
-      def execute(products)
-        initiate(products)
-        data = build_data
+  module Product
+    class IndexService < Intent::BaseService
+      def execute
+        products = search_products
+        data = build_data(products)
         generate_response(data)
       end
 
       private
 
-      def initiate(products)
-        @products = products
+      def search_products
+        ::Product.search_by_name(filter_params[:any])
       end
 
-      def build_data
-        {subtitle: description}
+      def build_data(products)
+        {subtitle: description(products)}
       end
 
-      def description
-        "#{I18n.t('products.index.header')}\n\n#{products_description}"
+      def description(products)
+        "#{I18n.t('products.index.header')}\n\n#{products_description(products)}"
       end
 
-      def products_description
+      def products_description(products)
         products.each_with_object('') do |product, text|
           text << "#{product_name(product)}\n#{prices_description(product)}\n"
         end

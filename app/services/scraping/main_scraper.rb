@@ -3,9 +3,9 @@ module Scraping
     class << self
       attr_reader :service, :supermarket
 
-      def execute(supermarket_name='', sections: [])
+      def execute(supermarket_name='')
         initiate(supermarket_name)
-        data_array = service.execute(sections)
+        data_array = service.execute
         products = create_products(data_array)
         prices_attrs = build_prices(data_array, products)
         create_prices(prices_attrs)
@@ -18,15 +18,12 @@ module Scraping
         @products_counter = Product.count
         @prices_counter = Price.count
         @time = Time.current
-        @service = scrapers_correspondence[supermarket_name.to_sym]
+        @service = instantiate_service(supermarket_name.to_sym)
         @supermarket = Supermarket.find_by(name: supermarket_name)
       end
 
-      def scrapers_correspondence
-        {
-          'Mercadona': Scraping::MercadonaScraper,
-          'Carrefour': Scraping::CarrefourScraper
-        }
+      def instantiate_service(supermarket_name)
+        "Scraping::#{supermarket_name}Scraper".constantize
       end
 
       def create_products(array)
