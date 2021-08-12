@@ -31,6 +31,7 @@ module Scraping
       private
 
       def process_page(page)
+        puts page
         response = get_page page
 
         return unless allow_category? response['name']
