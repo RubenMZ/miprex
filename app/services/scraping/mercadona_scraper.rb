@@ -2,10 +2,32 @@ require 'httparty'
 
 module Scraping
   class MercadonaScraper
-    CATEGORIES_WHITELIST = [
+    CATEGORIES = [
       'Agua y refrescos',
       'Aperitivos',
-      'Cacao, café e infusiones'
+      # 'Arroz, legumbres y pasta',
+      'Azúcar, caramelos y chocolate',
+      # 'Bebé',
+      # 'Bodega',
+      'Cacao, café e infusiones',
+      # 'Carne',
+      'Cereales y galletas',
+      # 'Charcutería y quesos',
+      # 'Congelados',
+      # 'Conservas, caldos y cremas',
+      # 'Cuidado del cabello',
+      # 'Cuidado facial y corporal',
+      # 'Fitoterapia y parafarmacia',
+      # 'Fruta y verdura',
+      # 'Huevos, leche y mantequilla',
+      # 'Limpieza y hogar',
+      # 'Maquillaje',
+      # 'Marisco y pescado',
+      # 'Mascotas',
+      # 'Panadería y pastelería',
+      'Pizzas y platos preparados',
+      'Postres y yogures',
+      'Zumos'
     ].freeze
 
     CATEGORIES_BLACKLIST = [
@@ -44,7 +66,7 @@ module Scraping
       end
 
       def allow_category?(category)
-        CATEGORIES_WHITELIST.include?(category) && !CATEGORIES_BLACKLIST.include?(category)
+        CATEGORIES.include?(category) && !CATEGORIES_BLACKLIST.include?(category)
       end
 
       def process_categories(categories)

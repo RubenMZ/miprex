@@ -10,7 +10,15 @@ module Intent
       private
 
       def search_product
-        ::Product.search_by_name(filter_params[:any]).first
+        product_by_id || product_by_name
+      end
+
+      def product_by_id
+        @product_by_id ||= ::Product.find(filter_params[:id])
+      end
+
+      def product_by_name
+        @product_by_name ||= ::Product.search_by_name(filter_params[:any]).first
       end
 
       def build_data(product)

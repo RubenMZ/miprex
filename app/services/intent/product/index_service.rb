@@ -28,7 +28,11 @@ module Intent
       end
 
       def product_name(product)
-        I18n.t('products.index.name', product_name: product.name)
+        "#{I18n.t('products.index.name', product_name: product.name)}\n#{product_command(product)}"
+      end
+
+      def product_command(product)
+        "/mostrar_#{product.id}"
       end
 
       def prices_description(product)
