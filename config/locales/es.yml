@@ -1,0 +1,12 @@
+es:
+  hello: "Hello world"
+  products:
+    index:
+      header: "Estas son algunas coincidencias:"
+      name: "✅ *%{product_name}*"
+      price: "#%{supermarket_name} %{price}€ (%{unit_price}€ / %{unit})"
+      medals:
+        - "🥇"
+        - "🥈"
+        - "🥉"
+    show:
