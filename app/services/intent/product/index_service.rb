@@ -14,7 +14,7 @@ module Intent
       private
 
       def search_products
-        ::Product.search_by_name(filter_params[:any]).paginate(pagination_params)
+        ::Product.search_by_name(filter_params[:any]) # .paginate(pagination_params)
       end
 
       def build_data(products)
