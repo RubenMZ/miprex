@@ -68,10 +68,11 @@ module Intent
       end
 
       def generate_response(data)
-        {
-          fulfillmentMessages: [Webhook::ResponseService.card_message(data)],
-          outputContexts: output_contexts
-        }
+        response = {fulfillmentMessages: [Webhook::ResponseService.card_message(data)]}
+
+        response[:outputContexts] = output_contexts if output_contexts
+
+        response
       end
     end
   end

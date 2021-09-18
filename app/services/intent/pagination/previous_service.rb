@@ -4,7 +4,7 @@ module Intent
       def execute
         {
           followupEventInput: {
-            name: pagination_context[:current_intent],
+            name: 'product.index',
             parameters: {
               page: pagination_params[:page] - 1,
               per: pagination_params[:per]
