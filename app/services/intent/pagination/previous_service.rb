@@ -6,7 +6,7 @@ module Intent
           followupEventInput: {
             name: 'productIndex',
             parameters: {
-              any: 'lomo',
+              any: 'lomo embuchado',
               page: pagination_params[:page] - 1,
               per: pagination_params[:per]
             }
