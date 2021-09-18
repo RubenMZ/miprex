@@ -3,7 +3,11 @@ module Intent
     class IndexService < Intent::BaseService
       def execute
         products = search_products
+
+        return if products.empty?
+
         data = build_data(products)
+
         generate_response(data)
       end
 

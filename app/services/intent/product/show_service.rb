@@ -3,7 +3,11 @@ module Intent
     class ShowService < Intent::BaseService
       def execute
         product = search_product
+
+        return if product.blank?
+
         data = build_data(product)
+
         generate_response(data)
       end
 

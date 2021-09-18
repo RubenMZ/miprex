@@ -10,9 +10,9 @@ module Scraping
       SECTIONS_WHITELIST = [
         'la-despensa/cat20001',
         'productos-frescos/cat20002',
-        'supermercado/bebidas/cat20003'
+        'supermercado/bebidas/cat20003',
+        'limpieza-y-hogar/cat20005'
         # 'perfumeria-e-higiene/cat20004',
-        # 'limpieza-y-hogar/cat20005',
         # 'bebe/cat20006',
         # 'mascotas/cat20007',
         # 'parafarmacia/cat20008',

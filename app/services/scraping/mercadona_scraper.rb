@@ -12,7 +12,7 @@ module Scraping
       'Cacao, café e infusiones',
       # 'Carne',
       'Cereales y galletas',
-      # 'Charcutería y quesos',
+      'Charcutería y quesos',
       # 'Congelados',
       # 'Conservas, caldos y cremas',
       # 'Cuidado del cabello',
