@@ -36,7 +36,7 @@ module Intent
       end
 
       def product_command(product)
-        "/mostrar_#{product.id}"
+        "/mostrar#{product.id}"
       end
 
       def prices_description(product)
