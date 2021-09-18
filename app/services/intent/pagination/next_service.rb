@@ -4,8 +4,9 @@ module Intent
       def execute
         {
           followupEventInput: {
-            name: 'product.index',
+            name: 'productIndex',
             parameters: {
+              any: 'lomo',
               page: pagination_params[:page] + 1,
               per: pagination_params[:per]
             }
