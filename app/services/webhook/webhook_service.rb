@@ -2,8 +2,11 @@ module Webhook
   class WebhookService
     class << self
       def run(params)
-        response = Webhook::IntentService.run(params)
-        Webhook::ResponseService.run(response)
+        fulfillment_messages, output_contexts = Webhook::IntentService.run(params)
+        Webhook::ResponseService.run(
+          fulfillment_messages: fulfillment_messages,
+          output_contexts: output_contexts
+        )
       end
 
       private

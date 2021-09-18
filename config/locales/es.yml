@@ -10,3 +10,5 @@ es:
         - "🥈"
         - "🥉"
     show:
+      price: "💰 Precio %{price}€ (%{unit_price}€ / %{unit})"
+      updated_at: "📅 Actualizado %{updated_at}"

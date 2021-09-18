@@ -14,7 +14,7 @@ module Intent
       private
 
       def search_products
-        ::Product.search_by_name(filter_params[:any])
+        ::Product.search_by_name(filter_params[:any]).paginate(pagination_params)
       end
 
       def build_data(products)
@@ -32,7 +32,7 @@ module Intent
       end
 
       def product_name(product)
-        "#{I18n.t('products.index.name', product_name: product.name)}\n#{product_command(product)}"
+        "#{I18n.t('products.index.name', product_name: product.name)} #{product_command(product)}"
       end
 
       def product_command(product)
@@ -40,8 +40,8 @@ module Intent
       end
 
       def prices_description(product)
-        prices(product).each.with_index.each_with_object('') do |(price, index), text|
-          text << "    #{I18n.t('products.index.medals')[index]} #{price_description(product, price)}\n"
+        prices(product).each_with_object('') do |price, text|
+          text << "    #{price_description(product, price)}\n"
         end
       end
 

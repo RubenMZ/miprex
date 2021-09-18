@@ -33,27 +33,28 @@ module Intent
       end
 
       def description(product)
-        "#{product_name(product)}\n#{prices_description(product)}\n"
-      end
-
-      def product_name(product)
-        I18n.t('products.index.name', product_name: product.name)
+        "*#{product.name}*\n#{prices_description(product)}"
       end
 
       def prices_description(product)
-        prices(product).each_with_object('') do |price, text|
-          text << "    #{price_description(product, price)}\n"
+        prices(product).each.with_index.each_with_object('') do |(price, index), text|
+          text << "    #{I18n.t('products.index.medals')[index]} ##{price.supermarket.name}\n"
+          text << "        #{price_description(product, price)}\n"
+          text << "        #{price_updated_at(price)}\n"
         end
       end
 
       def price_description(product, price)
         params = {
-          supermarket_name: price.supermarket.name,
           price: round_decimals(price.value),
           unit_price: unit_price(product, price),
           unit: product.unit
         }
-        I18n.t('products.index.price', params)
+        I18n.t('products.show.price', params)
+      end
+
+      def price_updated_at(price)
+        I18n.t('products.show.updated_at', {updated_at: price.updated_at.strftime('%d/%m/%Y')})
       end
 
       def prices(product)
