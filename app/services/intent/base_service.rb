@@ -4,7 +4,7 @@ module Intent
       def run(params={})
         instance = new(params)
 
-        [instance.execute, instance.output_contexts]
+        instance.execute
       end
     end
 
